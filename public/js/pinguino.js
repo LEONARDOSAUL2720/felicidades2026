@@ -14,9 +14,22 @@ class Pinguino {
     constructor() {
         this.img = new Image();
         this.img.src = pinguinosImgs[Math.floor(Math.random() * pinguinosImgs.length)];
-        this.x = Math.random() * (window.innerWidth - 80);
-        this.y = -80;
-        this.size = 60 + Math.random() * 40;
+        
+        // Calcular tamaño base responsivo
+        let sizeBase;
+        if (window.innerWidth < 480) {
+            sizeBase = 30;
+        } else if (window.innerWidth < 768) {
+            sizeBase = 45;
+        } else if (window.innerWidth < 1024) {
+            sizeBase = 65;
+        } else {
+            sizeBase = 100;
+        }
+        
+        this.x = Math.random() * (window.innerWidth - sizeBase);
+        this.y = -sizeBase;
+        this.size = sizeBase + Math.random() * (sizeBase * 0.4);
         this.speed = 0.8 + Math.random() * 1.2; // Reducido de 2-3 a 0.8-2 (mucho más lento)
         this.angle = Math.random() * 0.2 - 0.1;
         this.rotation = Math.random() * Math.PI * 2;

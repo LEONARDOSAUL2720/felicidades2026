@@ -98,13 +98,26 @@ class Explosion {
             ctx.translate(this.x, this.y);
             ctx.scale(scale, scale);
             
-            // Adaptar tamaño de imagen según pantalla
-            const size = window.innerWidth < 768 ? 120 : 180;
+            // Adaptar tamaño de imagen según pantalla de forma más granular
+            let size;
+            if (window.innerWidth < 480) {
+                size = 80; // Celular pequeño
+            } else if (window.innerWidth < 768) {
+                size = 120; // Celular mediano
+            } else if (window.innerWidth < 1024) {
+                size = 150; // Tablet
+            } else {
+                size = 180; // Desktop
+            }
             
-            // Dibujo con brillo
-            ctx.shadowColor = '#ffffff';
-            ctx.shadowBlur = 15;
+            // Dibujar imagen clara y brillante sin sombra oscura
+            ctx.filter = 'brightness(1.1) contrast(1.05)'; // Más clara y con contraste
+            ctx.shadowColor = 'rgba(255, 255, 255, 0.5)'; // Sombra blanca muy suave
+            ctx.shadowBlur = 8;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 0;
             ctx.drawImage(this.img, -size / 2, -size / 2, size, size);
+            ctx.filter = 'none'; // Resetear filtros
             ctx.restore();
         }
     }

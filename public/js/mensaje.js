@@ -82,15 +82,49 @@ class ExplosionTexto {
             ctx.save();
             ctx.globalAlpha = alpha;
             
-            // Adaptar tamaño de fuente según pantalla
-            const fontSize = window.innerWidth < 768 ? 32 : 48;
+            // Adaptar tamaño de fuente según pantalla de forma más agresiva
+            let fontSize;
+            if (window.innerWidth < 480) {
+                fontSize = 20; // Celular pequeño
+            } else if (window.innerWidth < 768) {
+                fontSize = 28; // Celular mediano
+            } else {
+                fontSize = 48; // Desktop
+            }
+            
             ctx.font = `bold ${fontSize}px Arial Black`;
             ctx.fillStyle = '#ffffff';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.shadowColor = '#ffff00';
             ctx.shadowBlur = 20;
-            ctx.fillText(this.texto, this.x, this.y - this.alturaMaxima);
+            
+            // Dividir texto en líneas si es muy largo
+            const maxWidth = window.innerWidth * 0.9;
+            const words = this.texto.split(' ');
+            let lines = [];
+            let currentLine = '';
+            
+            words.forEach(word => {
+                const testLine = currentLine + (currentLine ? ' ' : '') + word;
+                const metrics = ctx.measureText(testLine);
+                if (metrics.width > maxWidth && currentLine) {
+                    lines.push(currentLine);
+                    currentLine = word;
+                } else {
+                    currentLine = testLine;
+                }
+            });
+            if (currentLine) lines.push(currentLine);
+            
+            // Dibujar líneas de texto
+            const lineHeight = fontSize * 1.3;
+            const totalHeight = (lines.length - 1) * lineHeight;
+            lines.forEach((line, index) => {
+                const y = this.y - this.alturaMaxima + (index * lineHeight) - (totalHeight / 2);
+                ctx.fillText(line, this.x, y);
+            });
+            
             ctx.restore();
         }
     }
