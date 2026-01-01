@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Año Nuevo, Amor!</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: url('cielo-estrellado.jpg') center/cover no-repeat fixed;
+        }
+        #fireworks {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: block;
+            z-index: 1;
+        }
+        .mensaje {
+            position: absolute;
+            top: 40%;
+            width: 100vw;
+            text-align: center;
+            color: #fff;
+            font-size: 4vw;
+            font-family: 'Arial Black', Arial, sans-serif;
+            text-shadow: 0 0 20px #ffff00, 0 0 40px #ff00ff, 0 0 60px #00ffff;
+            z-index: 2;
+            user-select: none;
+            letter-spacing: 8px;
+            font-weight: bold;
+        }
+        #grupo-mensaje {
+            position: absolute;
+            top: 20%;
+            width: 100vw;
+            text-align: center;
+            color: #fff;
+            font-size: 2vw;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            text-shadow: 2px 2px 8px #ff0, 0 0 20px #f0f, 0 0 10px #0ff;
+            z-index: 3;
+            opacity: 0;
+            pointer-events: none;
+        }
+        #modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10;
+            justify-content: center;
+            align-items: center;
+        }
+        #modal-img {
+            max-width: 80vw;
+            max-height: 80vh;
+            border-radius: 20px;
+            box-shadow: 0 0 40px #fff;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="fireworks"></canvas>
+    <div class="mensaje" id="mensajePrincipal" style="opacity:0; display:none;"></div>
+    <div id="grupo-mensaje" style="display:none;"></div>
+    <div id="modal">
+        <img id="modal-img" src="" />
+    </div>
+
+    <!-- Scripts en orden correcto -->
+    <script src="js/particle.js"></script>
+    <script src="js/firework.js"></script>
+    <script src="js/pinguino.js"></script>
+    <script src="js/gotas.js"></script>
+    <script src="js/mensaje.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
