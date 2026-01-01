@@ -97,7 +97,9 @@ class Explosion {
             ctx.globalAlpha = alpha;
             ctx.translate(this.x, this.y);
             ctx.scale(scale, scale);
-            const size = 180;
+            
+            // Adaptar tamaño de imagen según pantalla
+            const size = window.innerWidth < 768 ? 120 : 180;
             
             // Dibujo con brillo
             ctx.shadowColor = '#ffffff';

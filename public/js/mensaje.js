@@ -81,7 +81,10 @@ class ExplosionTexto {
             
             ctx.save();
             ctx.globalAlpha = alpha;
-            ctx.font = 'bold 48px Arial Black';
+            
+            // Adaptar tamaño de fuente según pantalla
+            const fontSize = window.innerWidth < 768 ? 32 : 48;
+            ctx.font = `bold ${fontSize}px Arial Black`;
             ctx.fillStyle = '#ffffff';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';

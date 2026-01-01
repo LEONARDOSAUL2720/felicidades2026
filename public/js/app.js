@@ -86,27 +86,54 @@ function animate() {
     requestAnimationFrame(animate);
 }
 
+// Función para reiniciar toda la animación
+function reiniciarAnimacion() {
+    console.log('%c========== REINICIANDO ANIMACIÓN ==========', 'color: #FFD700; font-size: 16px; font-weight: bold;');
+    
+    // Limpiar todos los arrays
+    explosiones = [];
+    explosionesTexto = [];
+    explosionesCreadas = 0;
+    grupoActual = 0;
+    fireworks = [];
+    pinguinos = [];
+    mensajeCreado = false;
+    
+    // Reiniciar en 2 segundos
+    setTimeout(iniciarSecuencia, 2000);
+}
+
+// Función para iniciar la secuencia de animación
+function iniciarSecuencia() {
+    console.log('%c========== INICIANDO SECUENCIA ==========', 'color: #FFD700; font-size: 16px; font-weight: bold;');
+    console.log('Tiempo de inicio:', new Date().toLocaleTimeString());
+
+    setTimeout(() => {
+        console.log('%c[TIMER] 1.5s - Mostrando mensaje principal', 'color: #ffff00; font-size: 13px; font-weight: bold;');
+        // Crear explosión de texto para el mensaje principal
+        const explosionTexto = new ExplosionTexto(W / 2, H * 0.4, '¡Feliz Año Nuevo Amor!');
+        explosionesTexto.push(explosionTexto);
+        crearMensajeConFuegos(W, H, mensajePrincipal, fireworks);
+    }, 1500);
+
+    setTimeout(() => {
+        console.log('%c[TIMER] 3.0s - Iniciando animación de grupos', 'color: #00ff00; font-size: 13px; font-weight: bold;');
+        animarGrupos(W, H, mensajePrincipal);
+    }, 3000);
+    
+    // Reiniciar después de que todas las animaciones terminen (aproximadamente 130 segundos)
+    setTimeout(() => {
+        console.log('%c[APP] Todas las animaciones completadas, reiniciando...', 'color: #ff00ff; font-size: 13px; font-weight: bold;');
+        reiniciarAnimacion();
+    }, 130000); // 130 segundos = tiempo total de todas las explosiones
+}
+
 // Iniciar la animación
 console.log('%c========== INICIANDO APP ==========', 'color: #FFD700; font-size: 16px; font-weight: bold;');
 console.log('Resolución:', W, 'x', H);
-console.log('Tiempo de inicio:', new Date().toLocaleTimeString());
-
-setTimeout(() => {
-    console.log('%c[TIMER] 1.5s - Mostrando mensaje principal', 'color: #ffff00; font-size: 13px; font-weight: bold;');
-    // Crear explosión de texto para el mensaje principal
-    const explosionTexto = new ExplosionTexto(W / 2, H * 0.4, '¡Feliz Año Nuevo Amor!');
-    explosionesTexto.push(explosionTexto);
-    crearMensajeConFuegos(W, H, mensajePrincipal, fireworks);
-}, 1500);
-
-setTimeout(() => {
-    console.log('%c[TIMER] 3.0s - Iniciando animación de grupos', 'color: #00ff00; font-size: 13px; font-weight: bold;');
-    animarGrupos(W, H, mensajePrincipal);
-}, 3000);
-
-setTimeout(() => {
-    console.log('%c[TIMER] 4.5s - Animación de canvas en ejecución', 'color: #1e90ff; font-size: 13px; font-weight: bold;');
-}, 4500);
 
 console.log('%c[APP] Iniciando loop de animación', 'color: #00ffff; font-size: 12px;');
 animate();
+
+// Iniciar la primera secuencia
+iniciarSecuencia();
